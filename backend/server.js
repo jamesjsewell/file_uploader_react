@@ -29,11 +29,3 @@ app.listen(PORT, function () {
 	)
 })
 
-// for single page apps
-
-// app.get("*", function(req, res, next) {
-// 	if (!req.url.includes("api")) {
-// 		app.use(fallback(process.env.ROOT_DIR + "/views/index.html"))
-// 	}
-// 	return next()
-// })

@@ -7,7 +7,13 @@ import createHistory from "history/createBrowserHistory"
 
 class Blank extends Component {
     render() {
-        return <div>test</div>
+        return <div>test test</div>
+    }
+}
+
+class Example extends Component {
+    render() {
+        return <div>example page</div>
     }
 }
 
@@ -18,7 +24,7 @@ class RouterConfig extends Component {
             <Router>
 
                 <Switch>
-
+                    <Route exact path="/example/one/two" component={Example} />
                     <Route exact path="/" component={Blank} />
                     <Route path="*" component={Blank} />
 

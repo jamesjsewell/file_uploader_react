@@ -1,4 +1,3 @@
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack'); //to access built-in plugins
 
@@ -28,11 +27,11 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(['dist']),
+
         new HtmlWebpackPlugin({
             title: 'webpack_setup',
             template: "./src/index.html",
-            filename: "./index.html"
+            filename: "index.html"
         })
     ],
 };
