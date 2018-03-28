@@ -1,11 +1,22 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import './style.scss';
-import example from './example/example_module.js'
+import './style.scss'
+import React from "react"
+import ReactDOM from "react-dom"
+import { BrowserRouter, Route, Link } from "react-router-dom"
+import { Provider } from "react-redux"
+import { createStore, applyMiddleware } from "redux"
+import thunk from "redux-thunk"
+import RouterConfig from "./router.js"
+import rootReducer from "./reducers.js"
 
-const Index = () => {
-  return <div className="hello">Hello React! <div className="world">hello world</div></div>;
-};
+const middleware = applyMiddleware(thunk)
+const store = createStore(rootReducer, middleware)
 
-ReactDOM.render(<Index />, document.getElementById("index"));
+ReactDOM.render(
+    <Provider store={store}>
+        <BrowserRouter>
+            <RouterConfig />
+        </BrowserRouter>
+    </Provider>,
+    document.querySelector(".wrapper")
+)
 
