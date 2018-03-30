@@ -3,17 +3,11 @@ import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom"
 import { connect } from "react-redux"
 import { withRouter } from "react-router"
 import createHistory from "history/createBrowserHistory"
-
+import ExampleView from "./features/example_feature/components/exampleView.jsx"
 
 class Blank extends Component {
     render() {
         return <div>test test</div>
-    }
-}
-
-class Example extends Component {
-    render() {
-        return <div>example page</div>
     }
 }
 
@@ -24,7 +18,7 @@ class RouterConfig extends Component {
             <Router>
 
                 <Switch>
-                    <Route exact path="/example/one/two" component={Example} />
+                    <Route exact path="/example" component={ExampleView} />
                     <Route exact path="/" component={Blank} />
                     <Route path="*" component={Blank} />
 
