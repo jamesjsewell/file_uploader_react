@@ -13,6 +13,7 @@ const express = require("express"),
 // and performs logic on it, then returns the result as json 
 // or an error to where you made the http request from
 itemRoutes.post("/items", createItemCont.post)
+itemRoutes.post("/items/filter", createItemCont.get)
 itemRoutes.get("/items/:id", createItemCont.get)
 itemRoutes.get("/items", createItemCont.get)
 itemRoutes.put("/items/:id", createItemCont.update)

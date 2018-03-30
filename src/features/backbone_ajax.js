@@ -18,8 +18,8 @@ export function backbone_read(collection, queryObj, onError, onSuccess) {
         {
             data: queryObj ? queryObj : null,
             wait: true,
-            success: onSuccess,
-            error: onError 
+            success: (response) => { parse_response(response, onError, onSuccess) },
+            error: onError
         }
     )
 
@@ -63,6 +63,46 @@ export function backbone_delete(collection, id, onError, onSuccess) {
                 wait: true
             }
         )
+
+    }
+
+}
+
+function parse_response(response, onError, onSuccess) {
+
+    var error = false
+    var models = []
+
+    if(response.models){
+
+        models = response.models
+
+        if(models[0]){
+
+            var firstModel = models[0]
+
+            if(firstModel.attributes){
+
+                var attributes = firstModel.attributes
+
+                if(attributes.error){
+                    error = true
+                }
+
+            }
+        }
+
+    }
+
+    if(error){
+
+        var errorMessage = {error: true, message: attributes.message }
+        onError(errorMessage)
+        
+    }
+    else{
+
+        onSuccess(models)
 
     }
 

@@ -51,7 +51,8 @@ module.exports = {
         // if the json object ends up with key/value pairs
         // they will be used to filter for 'item' records 
         // that have matching parameters
-        var queryObj = {}
+        var queryObj = req.body
+     
         if (req.params.id) {
             queryObj._id = req.params.id
 

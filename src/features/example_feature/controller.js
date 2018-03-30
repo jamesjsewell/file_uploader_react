@@ -22,10 +22,10 @@ export function fetch_items(){
     return function(dispatch){
         var collection = new ItemCollection()
         var onError = function(err){
-            console.log(err, 'error')
+            console.log(err, 'received error')
         }
         var onSuccess = function(response){
-            console.log(response, 'response')
+            console.log(response, 'received response')
         }
         backbone_read(collection, null, onError, onSuccess)
     }
