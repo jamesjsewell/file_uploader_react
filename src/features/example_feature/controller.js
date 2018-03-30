@@ -1,14 +1,10 @@
+import _ from "underscore"
 import { combineReducers } from "redux"
 import { createStructuredSelector } from "reselect"
-import _ from "underscore"
-
-
-
-const DO_SOMETHING = "do_something",
-    DO_SOMETHING_ELSE = "do_something_else"
+import { Item, ItemCollection } from "./backbone_models/item.js"
 
 // actions
-import {backbone_create} from "../backbone_ajax.js"
+import {backbone_create, backbone_read} from "../backbone_ajax.js"
 
 export function doSomething() {
 	return function(dispatch) {
@@ -22,7 +18,23 @@ export function doSomethingElse() {
 	}
 }
 
+export function fetch_items(){
+    return function(dispatch){
+        var collection = new ItemCollection()
+        var onError = function(err){
+            console.log(err, 'error')
+        }
+        var onSuccess = function(response){
+            console.log(response, 'response')
+        }
+        backbone_read(collection, null, onError, onSuccess)
+    }
+}
+
 // reducers
+const DO_SOMETHING = "do_something",
+    DO_SOMETHING_ELSE = "do_something_else"
+
 const init_state = {
 	something: "",
 }

@@ -24,6 +24,9 @@ module.exports = merge(common, {
         watchOptions: {
             poll: true
         },
+        proxy: {
+            "/api": "http://localhost:3000"
+        },
         historyApiFallback: {
             index: 'index.html'
         }

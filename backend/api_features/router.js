@@ -4,7 +4,7 @@ const express = require("express")
 const apiRoutes = express.Router()
 
 // import api sub-routes
-const itemRoutes = require("./example_feature/itemRoutes.js")
+const itemRoutes = require("./items/routes.js")
 
 // tells main express router to use subroutes
 apiRoutes.use("/example_route", itemRoutes)

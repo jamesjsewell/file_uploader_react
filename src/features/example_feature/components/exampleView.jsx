@@ -23,7 +23,7 @@ class TestView extends Component {
         return (
           <div>
             <div>example feature</div>
-            <button onClick={()=>{this.props.something? this.props.actions.doSomethingElse() : this.props.actions.doSomething()}}>create</button>
+            <button onClick={()=>{this.props.actions.fetch_items()}}>create</button>
           </div>
         )
     }

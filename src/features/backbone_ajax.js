@@ -16,10 +16,10 @@ export function backbone_read(collection, queryObj, onError, onSuccess) {
 
     collection.fetch(
         {
-            data: queryObj ? queryObj : {},
+            data: queryObj ? queryObj : null,
             wait: true,
-            success: (response) => { console.log(response) },//onSuccess,
-            error: (err) => { console.log(err) }//onError 
+            success: onSuccess,
+            error: onError 
         }
     )
 

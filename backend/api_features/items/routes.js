@@ -1,5 +1,5 @@
 const express = require("express"),
-    createItemCont = require("./itemController.js"),
+    createItemCont = require("./controller.js"),
     itemRoutes = express.Router()
 
 // CRUD routes for the example feature
@@ -13,10 +13,10 @@ const express = require("express"),
 // and performs logic on it, then returns the result as json 
 // or an error to where you made the http request from
 itemRoutes.post("/items", createItemCont.post)
-itemRoutes.get("/item/:id", createItemCont.get)
+itemRoutes.get("/items/:id", createItemCont.get)
 itemRoutes.get("/items", createItemCont.get)
-itemRoutes.put("/item/:id", createItemCont.update)
-itemRoutes.delete("/item/:id", createItemCont.delete)
+itemRoutes.put("/items/:id", createItemCont.update)
+itemRoutes.delete("/items/:id", createItemCont.delete)
 
 // exports the express routes back to the router.js file, to be hooked up
 // to the main server file

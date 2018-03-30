@@ -1,9 +1,9 @@
 // mongooese model imported from the item's schema file
-const Item = require("./itemSchema.js")
+const Item = require("./schema.js")
 
 // see file for more info
-const errorHandler = require("../error_response.js").error,
-    successHandler = require("../success_response.js").success
+const errorHandler = require("./on_error.js").error,
+    successHandler = require("./on_success.js").success
 
 
 // exports the functions as methods that are the 'endpoints' of routes, where logic gets handled and 
