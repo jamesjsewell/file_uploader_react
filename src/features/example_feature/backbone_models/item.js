@@ -1,7 +1,8 @@
 import Backbone from "backbone";
+import { API_URL } from "../../util/util.js"
 
 export const Item = Backbone.Model.extend({
-	urlRoot: "/api/example_route/items",
+	urlRoot: `${API_URL}/example_route/items`,
 	idAttribute: "_id",
 	defaults: function () {
 		return {
@@ -20,11 +21,11 @@ export const ItemCollection = Backbone.Collection.extend({
 		if (options.data) {
 
 			options.type = 'POST';
-			options.url = "/api/example_route/items/filter"
+			options.url = `${API_URL}/example_route/items/filter`
 
 		}
 		else{
-			options.url = "/api/example_route/items"
+			options.url = `${API_URL}/example_route/items`
 		}
 	
 		Backbone.Collection.prototype.fetch.call(this, options);

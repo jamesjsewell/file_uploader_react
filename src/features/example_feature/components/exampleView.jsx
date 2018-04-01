@@ -4,28 +4,29 @@ import { connect } from "react-redux"
 import { Link, NavLink } from "react-router-dom"
 import { withRouter } from "react-router"
 import * as controller from "../controller"
+import ItemForm from "./itemForm.jsx"
 
 @connect(
-    state => controller.selector(state),
-    dispatch => ({
-        actions: bindActionCreators(controller, dispatch)
-    })
+  state => controller.selector(state),
+  dispatch => ({
+    actions: bindActionCreators(controller, dispatch)
+  })
 )
 
 class TestView extends Component {
 
-    componentWillReceiveProps(nextProps){
-      console.log(nextProps.something)
-    }
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps.something)
+  }
 
-    render() {
+  render() {
 
-        return (
-          <div>
-            <div>example feature</div>
-            <button onClick={()=>{this.props.actions.fetch_items()}}>create</button>
-          </div>
-        )
+    return (
+      <div>
+
+        <ItemForm />
+    
+      </div>)
     }
 }
 

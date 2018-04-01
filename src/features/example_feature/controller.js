@@ -4,7 +4,7 @@ import { createStructuredSelector } from "reselect"
 import { Item, ItemCollection } from "./backbone_models/item.js"
 
 // actions
-import {backbone_create, backbone_read} from "../backbone_ajax.js"
+import {backbone_create, backbone_read} from "../util/backboneAJAX.js"
 
 export function doSomething() {
 	return function(dispatch) {
@@ -27,7 +27,7 @@ export function fetch_items(){
         var onSuccess = function(response){
             console.log(response, 'received response')
         }
-        backbone_read(collection, null, onError, onSuccess)
+        backbone_read(collection, {_id: "5ab7cb6f88a11e94b0df984f"}, onError, onSuccess)
     }
 }
 

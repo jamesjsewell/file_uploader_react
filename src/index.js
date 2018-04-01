@@ -8,6 +8,7 @@ import thunk from "redux-thunk"
 import RouterConfig from "./router.js"
 import rootReducer from "./features/reducers.js"
 
+
 const middleware = applyMiddleware(thunk)
 const store = createStore(rootReducer, middleware)
 
