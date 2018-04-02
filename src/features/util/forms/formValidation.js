@@ -70,7 +70,6 @@ export const asyncValidate = (values, dispatch, validationType, form) => {
 
         })
         .catch(error => {
-            console.log(error.response.data);
             if (error.response.data) {
                 return error.response.data;
             }
@@ -89,7 +88,7 @@ export function shouldAsyncValidate(params) {
             // submitting, so only async validate if form is dirty or was never initialized
             // conversely, DON'T async validate if the form is pristine just as it was initialized
             // return !params.pristine || !params.initialized
-            return false;
+            return true;
         default:
             return false;
     }
