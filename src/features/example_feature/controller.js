@@ -6,37 +6,46 @@ import { Item, ItemCollection } from "./backbone_models/item.js"
 // actions
 import {backbone_create, backbone_read} from "../util/backboneAJAX.js"
 
-export function doSomething() {
-	return function(dispatch) {
-		dispatch({ type: DO_SOMETHING, payload: "did something" })
-	}
-}
-
-export function doSomethingElse() {
-	return function(dispatch) {
-		dispatch({ type: DO_SOMETHING_ELSE, payload: "" })
-	}
-}
-
-export function fetch_items(){
+export function create_item(collection, item){
     return function(dispatch){
-        var collection = new ItemCollection()
+        console.log(item)
+        backbone_create(collection, item, onError, (response)=>{ onSuccess(response, dispatch) })
+    }
+}
+
+export function fetch_items(collection){
+    return function(dispatch){
+    
         var onError = function(err){
             console.log(err, 'received error')
         }
-        var onSuccess = function(response){
-            console.log(response, 'received response')
-        }
-        backbone_read(collection, {_id: "5ab7cb6f88a11e94b0df984f"}, onError, onSuccess)
+
+        backbone_read(collection, null, onError, (response)=>{ onSuccess(response, dispatch) })
     }
+}
+
+function onSuccess(response, dispatch){
+
+    dispatch({
+        type: ITEM_COLLECTION,
+        payload: {itemCollection: response, items: response.models}
+    })
+}
+
+function onError(err){
+    console.log(err, 'received error')
 }
 
 // reducers
 const DO_SOMETHING = "do_something",
-    DO_SOMETHING_ELSE = "do_something_else"
+    DO_SOMETHING_ELSE = "do_something_else",
+    ITEM_COLLECTION = "item_collection"
 
 const init_state = {
-	something: "",
+    something: "",
+    item: Item,
+    items: null,
+    itemCollection: new ItemCollection()
 }
 
 function testReducer(state = init_state, action) {
@@ -47,6 +56,9 @@ function testReducer(state = init_state, action) {
         case DO_SOMETHING_ELSE: {
             return _.extend({}, state, { something: null})
         }
+        case ITEM_COLLECTION:{
+            return _.extend({}, state, { items: action.payload.items, itemCollection: action.payload.itemCollection })
+        }
 	}
 
 	return state
@@ -55,8 +67,12 @@ function testReducer(state = init_state, action) {
 export default testReducer
 
 // selectors
-const something = state => state.test.something
+const itemCollection = state => state.test.itemCollection
+const items = state => state.test.items
+const item = state => state.test.item
 
 export const selector = createStructuredSelector({
-	something
+    itemCollection,
+    items,
+    item
 })

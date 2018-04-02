@@ -24,13 +24,14 @@ class ItemForm extends Component {
 
     handleFormSubmit(formProps) {
         var userInput = formProps;
-
+        
         if (
             Object.keys(formProps).length > 0 &&
             formProps.constructor === Object
-        ) {
-
-            //this.props.doThisOnSubmit(userInput);
+        ) { 
+            console.log(this.props.item)
+            var item = new this.props.item(userInput)
+            this.props.createItem(this.props.itemCollection? this.props.itemCollection : null, item)
 
         }
 
@@ -40,7 +41,7 @@ class ItemForm extends Component {
         const { handleSubmit } = this.props;
 
         return (
-            <FormTemplate fieldsArray={fields} {...this.props} />
+            <FormTemplate doThisOnSubmit={this.handleFormSubmit.bind(this)} fieldsArray={fields} {...this.props} />
         );
     }
 }

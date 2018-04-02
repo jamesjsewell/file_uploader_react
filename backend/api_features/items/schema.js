@@ -7,7 +7,8 @@ const Schema = mongoose.Schema
 var Item = new Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
-}, { collection: 'items' })
+   
+}, { collection: 'items', timestamps: true })
 
 // exports mongoose model to the itemController.js file
 module.exports = mongoose.model("Item", Item)

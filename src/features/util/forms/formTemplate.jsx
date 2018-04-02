@@ -21,26 +21,12 @@ class FormTemplate extends Component {
         return renderedFields
     }
 
-    handleFormSubmit(formProps) {
-        var userInput = formProps;
-
-        if (
-            Object.keys(formProps).length > 0 &&
-            formProps.constructor === Object
-        ) {
-
-            //this.props.doThisOnSubmit(userInput);
-
-        }
-
-    }
-
     render() {
-        const { handleSubmit } = this.props;
+        const { handleSubmit, doThisOnSubmit } = this.props;
 
         return (
             <form
-                onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}
+                onSubmit={handleSubmit(doThisOnSubmit.bind(this))}
             >
 
                 {this.renderFields()}

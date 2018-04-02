@@ -5,8 +5,8 @@ export function backbone_create(collection, item, onError, onSuccess) {
         item,
         {
             wait: true,
-            success: (response) => { console.log(response) }, //onSuccess,
-            error: (error) => { console.log(error) }//onError
+            success: (response) => { parse_response(response, onError, onSuccess) }, //onSuccess,
+            error: (error) => { onError(error) }//onError
         }
     )
 
@@ -71,27 +71,33 @@ export function backbone_delete(collection, id, onError, onSuccess) {
 function parse_response(response, onError, onSuccess) {
 
     var error = false
+    var collection = response
     var models = []
 
-    if(response.models){
 
+    if(response.models){
         models = response.models
 
-        if(models[0]){
+    }
 
-            var firstModel = models[0]
+    if(response.collection){
+        collection = response.collection
+        models = response.collection.models
+    }
 
-            if(firstModel.attributes){
+    if(models[0]){
 
-                var attributes = firstModel.attributes
+        var firstModel = models[0]
 
-                if(attributes.error){
-                    error = true
-                }
+        if(firstModel.attributes){
 
+            var attributes = firstModel.attributes
+
+            if(attributes.error){
+                error = true
             }
-        }
 
+        }
     }
 
     if(error){
@@ -101,8 +107,8 @@ function parse_response(response, onError, onSuccess) {
         
     }
     else{
-
-        onSuccess(models)
+        
+        onSuccess(collection)
 
     }
 
