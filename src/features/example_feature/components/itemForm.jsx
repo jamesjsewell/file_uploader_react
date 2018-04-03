@@ -10,38 +10,61 @@ const afterSubmit = (result, dispatch, props) => {
 
 }
 
-const fields = [
-
-    { type: 'text', name: 'name', label: 'item name', placeholder: 'enter item name', component: TextField, validate: [required, alphaNumeric] },
-    { type: 'textarea', name: 'description', label: 'item description', placeholder: 'enter description', component: TextArea, validate: [required] }
-
-]
+var fieldValues = {}
 
 class ItemForm extends Component {
     constructor(props) {
         super(props);
+        this.state = {}
+        this.state.initName = ''
+        this.state.initDescription = ''
+
+        this.fields = [
+
+            { type: 'text', name: 'name', label: 'item name', placeholder: 'enter item name', component: TextField, validate: [required, alphaNumeric] },
+            { type: 'textarea', name: 'description', label: 'item description', placeholder: 'enter description', component: TextArea, validate: [required] }
+        
+        ]
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(this.props.item != nextProps.item){
+            
+            fieldValues.name = nextProps.item.attributes.name
+            fieldValues.description = nextProps.item.attributes.description
+            
+        }
     }
 
     handleFormSubmit(formProps) {
         var userInput = formProps;
-        
+       
         if (
             Object.keys(formProps).length > 0 &&
             formProps.constructor === Object
         ) { 
 
-            var item = new this.props.item(userInput)
-            this.props.createItem(this.props.itemCollection, item)
+            switch(this.props.formType){
+                case 'create': {
+                   
+                    var item = new this.props.model(userInput)
+                    this.props.createItem(this.props.itemCollection, item)
+                    break
+                }
 
+                case 'edit': {
+                    this.props.updateItem(this.props.itemCollection, this.props.item._id)  
+                    break
+                }
+            }    
         }
-
     }
 
     render() {
         const { handleSubmit } = this.props;
-
+    
         return (
-            <FormTemplate doThisOnSubmit={this.handleFormSubmit.bind(this)} fieldsArray={fields} {...this.props} />
+            <FormTemplate  doThisOnSubmit={this.handleFormSubmit.bind(this)} fieldsArray={this.fields} {...this.props} />
         );
     }
 }
@@ -52,5 +75,6 @@ export default reduxForm({
     asyncValidate: (values, dispatch, validationType)=>{ return asyncValidate(values, dispatch, validationType, 'itemForm') },
     asyncBlurFields: ["name"],
     shouldAsyncValidate,
-    onSubmitSuccess: afterSubmit
+    onSubmitSuccess: afterSubmit,
+    initialValues: fieldValues
 })(ItemForm);

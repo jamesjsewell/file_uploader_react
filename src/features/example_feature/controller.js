@@ -4,67 +4,84 @@ import { createStructuredSelector } from "reselect"
 import { Item, ItemCollection } from "./backbone_models/item.js"
 
 // actions
-import {backbone_create, backbone_read, backbone_delete} from "../util/backboneAJAX.js"
+import { backbone_create, backbone_read, backbone_delete } from "../util/backboneAJAX.js"
 
-export function create_item(collection, item){
-    return function(dispatch){
-       
-        backbone_create(collection, item, onError, (response)=>{ onSuccess(response, dispatch) })
+export function create_item(collection, item) {
+    return function (dispatch) {
+
+        backbone_create(collection, item, onError, (response) => { onSuccess(response, dispatch) })
     }
 }
 
-export function fetch_items(collection){
-    return function(dispatch){
-    
-        var onError = function(err){
+export function fetch_items(collection) {
+    return function (dispatch) {
+
+        var onError = function (err) {
             console.log(err, 'received error')
         }
 
-        backbone_read(collection, null, onError, (response)=>{ onSuccess(response, dispatch) })
+        backbone_read(collection, null, onError, (response) => { onSuccess(response, dispatch) })
     }
 }
 
-export function update_item(collection){
-    return function(dispatch){
-    
-        var onError = function(err){
+export function update_item(collection) {
+    return function (dispatch) {
+
+        var onError = function (err) {
             console.log(err, 'received error')
         }
 
-        backbone_read(collection, null, onError, (response)=>{ onSuccess(response, dispatch) })
+        backbone_read(collection, null, onError, (response) => { onSuccess(response, dispatch) })
     }
 }
 
-export function delete_item(collection, id){
-    return function(dispatch){
-    
-        var onError = function(err){
+export function delete_item(collection, id) {
+    return function (dispatch) {
+
+        var onError = function (err) {
             console.log(err, 'received error')
         }
 
-        backbone_delete(collection, id, onError, (response)=>{ onSuccess(response, dispatch) })
+        backbone_delete(collection, id, onError, (response) => { onSuccess(response, dispatch) })
     }
 }
 
-function onSuccess(response, dispatch){
+export function edit_item(collection, id) {
+    return function (dispatch) {
+
+        var model = collection.get(id)
+        dispatch({
+            type: EDIT_ITEM,
+            payload: { selected: model, editing: true }
+        })
+
+    }
+}
+
+
+
+function onSuccess(response, dispatch) {
 
     dispatch({
         type: ITEM_COLLECTION,
-        payload: {itemCollection: response, items: response.models }
+        payload: { itemCollection: response, items: response.models }
     })
 }
 
-function onError(err){
+function onError(err) {
     console.log(err, 'received error')
 }
 
 // reducers
 const DO_SOMETHING = "do_something",
     DO_SOMETHING_ELSE = "do_something_else",
-    ITEM_COLLECTION = "item_collection"
+    ITEM_COLLECTION = "item_collection",
+    EDIT_ITEM = "edit_item"
 
 const init_state = {
     something: "",
+    selectedItem: null,
+    editingItem: null,
     item: Item,
     items: null,
     itemCollection: new ItemCollection(),
@@ -72,40 +89,47 @@ const init_state = {
 }
 
 function testReducer(state = init_state, action) {
-	switch (action.type) {
-		case DO_SOMETHING: {
-			return _.extend({}, state, { something: action.payload })
+    switch (action.type) {
+        case DO_SOMETHING: {
+            return _.extend({}, state, { something: action.payload })
         }
         case DO_SOMETHING_ELSE: {
-            return _.extend({}, state, { something: null})
+            return _.extend({}, state, { something: null })
         }
-        case ITEM_COLLECTION:{
-            
+        case ITEM_COLLECTION: {
+
             var updated = state.itemCollectionChanged
 
-            if (updated){
+            if (updated) {
                 updated = false
             }
-            else{
+            else {
                 updated = true
             }
 
             return _.extend({}, state, { items: action.payload.items, itemCollection: action.payload.itemCollection, itemCollectionChanged: updated })
         }
-	}
+        case EDIT_ITEM: {
+            return _.extend({}, state, { selectedItem: action.payload.selected, editingItem: action.payload.editing })
+        }
+    }
 
-	return state
+    return state
 }
 
 export default testReducer
 
 // selectors
+const selectedItem = state => state.test.selectedItem
+const editingItem = state => state.test.editingItem
 const itemCollectionChanged = state => state.test.itemCollectionChanged
 const itemCollection = state => state.test.itemCollection
 const items = state => state.test.items
 const item = state => state.test.item
 
 export const selector = createStructuredSelector({
+    selectedItem,
+    editingItem,
     itemCollectionChanged,
     itemCollection,
     items,

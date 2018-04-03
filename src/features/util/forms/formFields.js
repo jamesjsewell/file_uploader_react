@@ -10,7 +10,7 @@ export const TextField = ({
     required,
     asyncValidation,
     initialValues,
-    meta: { touched, error, warning, value, asyncValidating, pristine }
+    meta: { touched, error, warning, value, asyncValidating, pristine}
 }) => (
     <div>
         <label style={{display: 'block'}}>{label}</label>
