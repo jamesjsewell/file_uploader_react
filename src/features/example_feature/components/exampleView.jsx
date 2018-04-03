@@ -5,6 +5,7 @@ import { Link, NavLink } from "react-router-dom"
 import { withRouter } from "react-router"
 import * as controller from "../controller"
 import ItemForm from "./itemForm.jsx"
+import ItemLayout from "./item.jsx"
 
 @connect(
   state => controller.selector(state),
@@ -21,14 +22,17 @@ class TestView extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
+    console.log(nextProps)
   }
 
   renderItems(){
     var renderedItems = []
     for(var i = 0; i < this.props.items.length; i++){
       var theItem = this.props.items[i].attributes
-      renderedItems.push(<div key={`item${i}`}><p>{theItem.name}</p><p>{theItem.description}</p><br/></div>)
+      
+      renderedItems.push(
+        <ItemLayout key={`item${i}`} theItem={theItem} deleteItem={this.props.actions.delete_item.bind(this)} collection={this.props.itemCollection} />
+      )
     }
   
     return renderedItems

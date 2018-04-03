@@ -4,11 +4,11 @@ import { createStructuredSelector } from "reselect"
 import { Item, ItemCollection } from "./backbone_models/item.js"
 
 // actions
-import {backbone_create, backbone_read} from "../util/backboneAJAX.js"
+import {backbone_create, backbone_read, backbone_delete} from "../util/backboneAJAX.js"
 
 export function create_item(collection, item){
     return function(dispatch){
-        console.log(item)
+       
         backbone_create(collection, item, onError, (response)=>{ onSuccess(response, dispatch) })
     }
 }
@@ -24,11 +24,33 @@ export function fetch_items(collection){
     }
 }
 
+export function update_item(collection){
+    return function(dispatch){
+    
+        var onError = function(err){
+            console.log(err, 'received error')
+        }
+
+        backbone_read(collection, null, onError, (response)=>{ onSuccess(response, dispatch) })
+    }
+}
+
+export function delete_item(collection, id){
+    return function(dispatch){
+    
+        var onError = function(err){
+            console.log(err, 'received error')
+        }
+
+        backbone_delete(collection, id, onError, (response)=>{ onSuccess(response, dispatch) })
+    }
+}
+
 function onSuccess(response, dispatch){
 
     dispatch({
         type: ITEM_COLLECTION,
-        payload: {itemCollection: response, items: response.models}
+        payload: {itemCollection: response, items: response.models }
     })
 }
 
@@ -45,7 +67,8 @@ const init_state = {
     something: "",
     item: Item,
     items: null,
-    itemCollection: new ItemCollection()
+    itemCollection: new ItemCollection(),
+    itemCollectionChanged: false
 }
 
 function testReducer(state = init_state, action) {
@@ -57,7 +80,17 @@ function testReducer(state = init_state, action) {
             return _.extend({}, state, { something: null})
         }
         case ITEM_COLLECTION:{
-            return _.extend({}, state, { items: action.payload.items, itemCollection: action.payload.itemCollection })
+            
+            var updated = state.itemCollectionChanged
+
+            if (updated){
+                updated = false
+            }
+            else{
+                updated = true
+            }
+
+            return _.extend({}, state, { items: action.payload.items, itemCollection: action.payload.itemCollection, itemCollectionChanged: updated })
         }
 	}
 
@@ -67,11 +100,13 @@ function testReducer(state = init_state, action) {
 export default testReducer
 
 // selectors
+const itemCollectionChanged = state => state.test.itemCollectionChanged
 const itemCollection = state => state.test.itemCollection
 const items = state => state.test.items
 const item = state => state.test.item
 
 export const selector = createStructuredSelector({
+    itemCollectionChanged,
     itemCollection,
     items,
     item

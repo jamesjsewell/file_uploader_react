@@ -53,12 +53,16 @@ export function backbone_update(collection, id, updated, onError, onSuccess) {
 export function backbone_delete(collection, id, onError, onSuccess) {
 
     var model = collection.get(id)
+    console.log(collection)
 
     if (model) {
 
-        model.destroy(
+        model.destroy( 
+            
             {
-                success: (response) => { console.log(response) }, //onSuccess,
+                success: (model, response, options) => { 
+                    console.log(collection)
+                    parse_response(collection, onError, onSuccess) }, //onSuccess,
                 error: (err) => { console.log(err) },//onError,
                 wait: true
             }
@@ -73,7 +77,6 @@ function parse_response(response, onError, onSuccess) {
     var error = false
     var collection = response
     var models = []
-
 
     if(response.models){
         models = response.models
@@ -107,7 +110,7 @@ function parse_response(response, onError, onSuccess) {
         
     }
     else{
-        
+        console.log(collection)
         onSuccess(collection)
 
     }

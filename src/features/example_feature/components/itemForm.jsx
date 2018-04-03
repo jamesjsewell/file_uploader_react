@@ -29,9 +29,9 @@ class ItemForm extends Component {
             Object.keys(formProps).length > 0 &&
             formProps.constructor === Object
         ) { 
-            console.log(this.props.item)
+
             var item = new this.props.item(userInput)
-            this.props.createItem(this.props.itemCollection? this.props.itemCollection : null, item)
+            this.props.createItem(this.props.itemCollection, item)
 
         }
 
