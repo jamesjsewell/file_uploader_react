@@ -31,7 +31,7 @@ class TestView extends Component {
       var theItem = this.props.items[i].attributes
 
       renderedItems.push(
-        <ItemLayout key={`item${i}`} theItem={theItem} collection={this.props.itemCollection}  editItem={this.props.actions.edit_item.bind(this)} deleteItem={this.props.actions.delete_item.bind(this)} editing={this.props.editingItem} />
+        <ItemLayout key={`item${i}`} theItem={theItem} collection={this.props.itemCollection}  editItem={this.props.actions.edit_item.bind(this)} deleteItem={this.props.actions.delete_item.bind(this)} editing={this.props.editingItem} selected={this.props.selectedItem} />
       )
     }
 

@@ -25,26 +25,21 @@ export function backbone_read(collection, queryObj, onError, onSuccess) {
 
 }
 
-export function backbone_update(collection, id, updated, onError, onSuccess) {
+export function backbone_update(collection, item, updated, onError, onSuccess) {
 
-    var model = collection.get(id)
+    var model = collection.get(item._id)
 
     if (model) {
 
-        model.set(updated)
-
-        model
-            .save()
-            .done((response) => {
-                console.log(response)
-                //collection.reset(collection.models, model)
-                //var updatedModel = collection.get(id)
-                //onSuccess()
-            })
-            .fail(function (err) {
-                console.log(err)
-                //onError()
-            })
+        model.save( 
+            updated,
+            {   
+                merge: true,
+                wait: true,
+                success: (response) => { parse_response(response, onError, onSuccess) },
+                error: onError
+            }
+        )
 
     }
 
@@ -77,6 +72,7 @@ function parse_response(response, onError, onSuccess) {
     var error = false
     var collection = response
     var models = []
+    console.log(response)
 
     if(response.models){
         models = response.models

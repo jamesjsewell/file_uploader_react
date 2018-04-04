@@ -28,10 +28,10 @@ class ItemForm extends Component {
     }
 
     componentWillReceiveProps(nextProps){
-        if(this.props.item != nextProps.item){
+        if(this.props.item != nextProps.item && nextProps.item){
             
-            fieldValues.name = nextProps.item.attributes.name
-            fieldValues.description = nextProps.item.attributes.description
+            fieldValues.name = nextProps.item.name
+            fieldValues.description = nextProps.item.description
             
         }
     }
@@ -53,7 +53,7 @@ class ItemForm extends Component {
                 }
 
                 case 'edit': {
-                    this.props.updateItem(this.props.itemCollection, this.props.item._id)  
+                    this.props.updateItem(this.props.itemCollection, this.props.item, userInput)  
                     break
                 }
             }    

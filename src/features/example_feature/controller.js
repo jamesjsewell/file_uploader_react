@@ -4,7 +4,7 @@ import { createStructuredSelector } from "reselect"
 import { Item, ItemCollection } from "./backbone_models/item.js"
 
 // actions
-import { backbone_create, backbone_read, backbone_delete } from "../util/backboneAJAX.js"
+import { backbone_create, backbone_read, backbone_update, backbone_delete } from "../util/backboneAJAX.js"
 
 export function create_item(collection, item) {
     return function (dispatch) {
@@ -24,14 +24,14 @@ export function fetch_items(collection) {
     }
 }
 
-export function update_item(collection) {
+export function update_item(collection, item, info) {
     return function (dispatch) {
 
         var onError = function (err) {
             console.log(err, 'received error')
         }
 
-        backbone_read(collection, null, onError, (response) => { onSuccess(response, dispatch) })
+        backbone_update(collection, item, info, onError, (response) => { onSuccess(response, dispatch) })
     }
 }
 
@@ -52,7 +52,7 @@ export function edit_item(collection, id) {
         var model = collection.get(id)
         dispatch({
             type: EDIT_ITEM,
-            payload: { selected: model, editing: true }
+            payload: { selected: model.attributes, editing: true }
         })
 
     }
@@ -61,7 +61,7 @@ export function edit_item(collection, id) {
 
 
 function onSuccess(response, dispatch) {
-
+    
     dispatch({
         type: ITEM_COLLECTION,
         payload: { itemCollection: response, items: response.models }
@@ -107,7 +107,7 @@ function testReducer(state = init_state, action) {
                 updated = true
             }
 
-            return _.extend({}, state, { items: action.payload.items, itemCollection: action.payload.itemCollection, itemCollectionChanged: updated })
+            return _.extend({}, state, { items: action.payload.items, itemCollection: action.payload.itemCollection, itemCollectionChanged: updated, editingItem: false })
         }
         case EDIT_ITEM: {
             return _.extend({}, state, { selectedItem: action.payload.selected, editingItem: action.payload.editing })
