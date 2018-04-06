@@ -57,12 +57,12 @@ class TestView extends Component {
         {this.props.editingItem ?
           <div>
             <strong>edit</strong>
-            <ItemForm {...formProps} />
+            <ItemForm editing={true} {...formProps} />
           </div>
           :
           <div>
             <strong>create item</strong>
-            <ItemForm {...formProps} />
+            <ItemForm editing={false} {...formProps} />
           </div>
         }
 

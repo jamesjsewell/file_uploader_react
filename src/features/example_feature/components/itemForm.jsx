@@ -34,6 +34,12 @@ class ItemForm extends Component {
             fieldValues.description = nextProps.item.description
             
         }
+
+        if(this.props.editing === true && nextProps.editing === false ){
+
+            fieldValues.name = ""
+            fieldValues.description = ""
+        }
     }
 
     handleFormSubmit(formProps) {
