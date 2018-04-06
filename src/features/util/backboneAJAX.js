@@ -72,7 +72,6 @@ function parse_response(response, onError, onSuccess) {
     var error = false
     var collection = response
     var models = []
-    console.log(response)
 
     if(response.models){
         models = response.models
@@ -106,7 +105,7 @@ function parse_response(response, onError, onSuccess) {
         
     }
     else{
-        console.log(collection)
+       
         onSuccess(collection)
 
     }

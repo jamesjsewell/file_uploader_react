@@ -58,10 +58,8 @@ export function edit_item(collection, id) {
     }
 }
 
-
-
 function onSuccess(response, dispatch) {
-    
+
     dispatch({
         type: ITEM_COLLECTION,
         payload: { itemCollection: response, items: response.models }
@@ -73,13 +71,10 @@ function onError(err) {
 }
 
 // reducers
-const DO_SOMETHING = "do_something",
-    DO_SOMETHING_ELSE = "do_something_else",
-    ITEM_COLLECTION = "item_collection",
+const ITEM_COLLECTION = "item_collection",
     EDIT_ITEM = "edit_item"
 
 const init_state = {
-    something: "",
     selectedItem: null,
     editingItem: null,
     item: Item,
@@ -90,12 +85,7 @@ const init_state = {
 
 function testReducer(state = init_state, action) {
     switch (action.type) {
-        case DO_SOMETHING: {
-            return _.extend({}, state, { something: action.payload })
-        }
-        case DO_SOMETHING_ELSE: {
-            return _.extend({}, state, { something: null })
-        }
+
         case ITEM_COLLECTION: {
 
             var updated = state.itemCollectionChanged

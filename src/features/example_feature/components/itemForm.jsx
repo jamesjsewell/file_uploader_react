@@ -35,7 +35,7 @@ class ItemForm extends Component {
             
         }
 
-        if(this.props.editing === true && nextProps.editing === false ){
+        if(this.props.formType === "edit" && nextProps.formType === "create" ){
 
             fieldValues.name = ""
             fieldValues.description = ""

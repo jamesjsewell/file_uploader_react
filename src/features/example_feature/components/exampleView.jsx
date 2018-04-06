@@ -22,7 +22,7 @@ class TestView extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    
+
   }
 
   renderItems() {
@@ -31,7 +31,7 @@ class TestView extends Component {
       var theItem = this.props.items[i].attributes
 
       renderedItems.push(
-        <ItemLayout key={`item${i}`} theItem={theItem} collection={this.props.itemCollection}  editItem={this.props.actions.edit_item.bind(this)} deleteItem={this.props.actions.delete_item.bind(this)} editing={this.props.editingItem} selected={this.props.selectedItem} />
+        <ItemLayout key={`item${i}`} theItem={theItem} collection={this.props.itemCollection} editItem={this.props.actions.edit_item.bind(this)} deleteItem={this.props.actions.delete_item.bind(this)} editing={this.props.editingItem} selected={this.props.selectedItem} />
       )
     }
 
@@ -39,14 +39,14 @@ class TestView extends Component {
   }
 
   render() {
-    console.log('editing?', this.props.editingItem)
+
     var formProps = {
 
-      formType: this.props.editingItem? "edit" : "create",
+      formType: this.props.editingItem ? "edit" : "create",
       createItem: this.props.actions.create_item.bind(this),
       updateItem: this.props.actions.update_item.bind(this),
       model: this.props.item,
-      item: this.props.editingItem? this.props.selectedItem : null,
+      item: this.props.editingItem ? this.props.selectedItem : null,
       itemCollection: this.props.itemCollection
 
     }
@@ -57,12 +57,12 @@ class TestView extends Component {
         {this.props.editingItem ?
           <div>
             <strong>edit</strong>
-            <ItemForm editing={true} {...formProps} />
+            <ItemForm {...formProps} />
           </div>
           :
           <div>
             <strong>create item</strong>
-            <ItemForm editing={false} {...formProps} />
+            <ItemForm {...formProps} />
           </div>
         }
 
