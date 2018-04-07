@@ -54,12 +54,12 @@ class ItemForm extends Component {
                 case 'create': {
                    
                     var item = new this.props.model(userInput)
-                    this.props.createItem(this.props.itemCollection, item)
+                    this.props.CRUD('create', {collection: this.props.itemCollection, item: item})
                     break
                 }
 
                 case 'edit': {
-                    this.props.updateItem(this.props.itemCollection, this.props.item, userInput)  
+                    this.props.CRUD('update', {collection: this.props.itemCollection, item: this.props.item, info: userInput})  
                     break
                 }
             }    

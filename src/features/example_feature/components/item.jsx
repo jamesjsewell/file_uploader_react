@@ -19,8 +19,8 @@ class ItemLayout extends Component {
 
                         {editing ? null :
                             <div>
-                                <button style={{ float: 'right' }} onClick={() => this.props.deleteItem(collection, theItem._id)}>x</button>
-                                <button style={{ float: 'right' }} onClick={() => this.props.editItem(collection, theItem._id)}>edit</button>
+                                <button style={{ float: 'right' }} onClick={() => this.props.CRUD('delete', {collection: collection, id: theItem._id})}>x</button>
+                                <button style={{ float: 'right' }} onClick={() => this.props.CRUD('edit', {collection: collection, id: theItem._id})}>edit</button>
                             </div>}
 
                         <strong>{theItem.name}</strong>

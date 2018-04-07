@@ -6,129 +6,89 @@ import { Item, ItemCollection } from "./backbone_models/item.js"
 // actions
 import { backbone_create, backbone_read, backbone_update, backbone_delete } from "../util/backboneAJAX.js"
 
-export function create_item(collection, item) {
+export function CRUD(operation, operationData){
 
-    return function (dispatch) {
+    return function(dispatch){
 
-        class CreateSuccess extends Success{
-            redux(doThis){
-                dispatch(doThis)
+        var {collection, item, id, info} = operationData
+
+        switch(operation){
+
+            case 'create': {
+                backbone_create(collection, item, (error) => { onError(error, dispatch) }, onSuccess )
+                break
+            }   
+
+            case 'read': {
+                backbone_read(collection, null, onError, onSuccess)
+                break
             }
+
+            case 'update': {
+                backbone_update(collection, item, info, onError, onSuccess)
+                break
+            }
+
+            case 'delete': {
+                backbone_delete(collection, id, onError, onSuccess)
+                break
+            }
+
+            case 'edit': {
+                editItem(collection, id)
+            }
+
+
         }
 
-        backbone_create(collection, item, (error) => { onError(error, dispatch) }, CreateSuccess )
-    }
-}
-
-export function fetch_items(collection) {
-    return function (dispatch) {  
-        
-        class FetchSuccess extends Success{
-            redux(doThis){
-                dispatch(doThis)
-            }
+        function editItem(collection, id)  {
+            var model = collection.get(id)
+            dispatch({
+                type: EDIT_ITEM,
+                payload: { selected: model.attributes, editing: true }
+            })
         }
 
-        Success.dispatch = dispatch
-        backbone_read(collection, null, onError, FetchSuccess)
-    }
-}
+        function onSuccess(collection, message){
 
-export function update_item(collection, item, info) {
-    return function (dispatch) {
+            dispatch({
+                type: ITEM_COLLECTION,
+                payload: { itemCollection: collection, items: collection.models }
+            })
 
-        class UpdateSuccess extends Success{
-            redux(doThis){
-                dispatch(doThis)
-            }
+            handleNotification(message)
+
         }
 
-        backbone_update(collection, item, info, onError, UpdateSuccess)
-    }
-}
-
-export function delete_item(collection, id) {
-
-    return function (dispatch) {
-
-        class DeleteSuccess extends Success{
-            redux(doThis){
-                dispatch(doThis)
-            }
-        }
-        
-        backbone_delete(collection, id, onError, DeleteSuccess)
-    }
-}
-
-export function edit_item(collection, id) {
-    return function (dispatch) {
-
-        var model = collection.get(id)
-        dispatch({
-            type: EDIT_ITEM,
-            payload: { selected: model.attributes, editing: true }
-        })
-
-    }
-}
-
-function successMiddleware(){
-
-}
-
-class Success {
-
-    constructor(collection, message){
-        this.collection = collection
-        this.message = message
-        this.start()
-    }
+        function handleNotification(message, time) {
     
-    start() {
+            dispatch({
+                type: MESSAGE,
+                payload: message
+            })
         
-        this.redux({
-            type: ITEM_COLLECTION,
-            payload: { itemCollection: this.collection, items: this.collection.models }
-        })
-
-        this.showMessage()
-    }
-
-    showMessage() {
-
-        handleMessage(this.message, this.redux, 2000)
+            var reset = function(){
+                dispatch({
+                    type: MESSAGE,
+                    payload: null
+                })
+            }
+        
+            setTimeout(reset, 8000)
+            
+        }
 
     }
 
 }
 
-function onSuccess(){
-    console.log('sfad')
-}
 
 function onError(error, dispatch) {
    
     handleMessage(error, dispatch)
 }
 
-function handleMessage(message, dispatch, time){
-    
-    dispatch({
-        type: MESSAGE,
-        payload: message
-    })
 
-    var reset = function(){
-        dispatch({
-            type: MESSAGE,
-            payload: null
-        })
-    }
-
-    setTimeout(reset, 8000)
-    
-}
 
 // reducers
 const ITEM_COLLECTION = "item_collection",
