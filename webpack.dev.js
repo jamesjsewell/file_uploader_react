@@ -29,7 +29,8 @@ module.exports = merge(common, {
         },
         historyApiFallback: {
             index: 'index.html'
-        }
+        },
+        port: 8080
     },
     devtool: 'inline-source-map',
     plugins: [

@@ -31,7 +31,7 @@ export const ItemCollection = Backbone.Collection.extend({
 		Backbone.Collection.prototype.fetch.call(this, options);
 	},
 	parse: function (response) {
-
+		console.log(response)
 		return response
 
 	},

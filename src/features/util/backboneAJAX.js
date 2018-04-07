@@ -1,12 +1,18 @@
 
 export function backbone_create(collection, item, onError, onSuccess) {
 
+    var successMessage = "created item"
+
+    function handleResponse(response){
+        parse_response(response, onError, onSuccess, successMessage)
+    }
+
     collection.create(
         item,
         {
             wait: true,
-            success: (response) => { parse_response(response, onError, onSuccess) }, //onSuccess,
-            error: (error) => { onError(error) }//onError
+            success: handleResponse, //onSuccess,
+            error: (response) => { console.log(response) }//onError
         }
     )
 
@@ -14,11 +20,17 @@ export function backbone_create(collection, item, onError, onSuccess) {
 
 export function backbone_read(collection, queryObj, onError, onSuccess) {
 
+    var successMessage = "fetched items"
+
+    function handleResponse(response){
+        parse_response(response, onError, onSuccess, successMessage)
+    }
+
     collection.fetch(
         {
             data: queryObj ? queryObj : null,
             wait: true,
-            success: (response) => { parse_response(response, onError, onSuccess) },
+            success: handleResponse,
             error: onError
         }
     )
@@ -26,8 +38,14 @@ export function backbone_read(collection, queryObj, onError, onSuccess) {
 }
 
 export function backbone_update(collection, item, updated, onError, onSuccess) {
-
+    
     var model = collection.get(item._id)
+
+    var successMessage = "updated item"
+
+    function handleResponse(response){
+        parse_response(response, onError, onSuccess, successMessage)
+    }
 
     if (model) {
 
@@ -36,7 +54,7 @@ export function backbone_update(collection, item, updated, onError, onSuccess) {
             {   
                 merge: true,
                 wait: true,
-                success: (response) => { parse_response(response, onError, onSuccess) },
+                success: handleResponse,
                 error: onError
             }
         )
@@ -48,16 +66,19 @@ export function backbone_update(collection, item, updated, onError, onSuccess) {
 export function backbone_delete(collection, id, onError, onSuccess) {
 
     var model = collection.get(id)
-    console.log(collection)
+    
+    var successMessage = "removed item"
+
+    function handleResponse(response){
+        parse_response(collection, onError, onSuccess, successMessage)
+    }
 
     if (model) {
 
         model.destroy( 
             
             {
-                success: (model, response, options) => { 
-                    console.log(collection)
-                    parse_response(collection, onError, onSuccess) }, //onSuccess,
+                success: handleResponse,
                 error: (err) => { console.log(err) },//onError,
                 wait: true
             }
@@ -67,46 +88,26 @@ export function backbone_delete(collection, id, onError, onSuccess) {
 
 }
 
-function parse_response(response, onError, onSuccess) {
-
+function parse_response(response, onError, onSuccess, message) {
+    
     var error = false
     var collection = response
-    var models = []
 
-    if(response.models){
-        models = response.models
+    console.log(response)
 
-    }
+    if(response.attributes && response.attributes.error){
 
-    if(response.collection){
-        collection = response.collection
-        models = response.collection.models
-    }
+        onError(response.attributes.message)
 
-    if(models[0]){
-
-        var firstModel = models[0]
-
-        if(firstModel.attributes){
-
-            var attributes = firstModel.attributes
-
-            if(attributes.error){
-                error = true
-            }
-
-        }
-    }
-
-    if(error){
-
-        var errorMessage = {error: true, message: attributes.message }
-        onError(errorMessage)
-        
     }
     else{
-       
-        onSuccess(collection)
+
+        if(response.collection){
+            collection = response.collection
+        }
+
+        
+        new onSuccess(collection, message)
 
     }
 

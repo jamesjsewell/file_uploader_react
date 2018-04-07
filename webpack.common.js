@@ -19,11 +19,12 @@ module.exports = {
             },
             {
                 test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
+                exclude: [/node_modules/, /backend/],
                 use: {
                   loader: "babel-loader",
                   options: {
-                    cacheDirectory: true
+                    cacheDirectory: true,
+                    ignore: /backend/
                   }
                 }
             }
@@ -36,5 +37,5 @@ module.exports = {
             template: "./src/index.html",
             filename: "index.html"
         })
-    ],
+    ]
 };

@@ -134,7 +134,6 @@ module.exports = {
                 return errorHandler(req, res, message, err)
                 
             }
-            console.log('deleted')
 
             // if the record was found and removed, a confirmation message will be sent back as an http response to where the request was made
             var message = "item deleted"

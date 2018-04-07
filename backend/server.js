@@ -7,7 +7,7 @@ connectToDB("test_project")
 
 // runs express app and sets defined port
 var app = express()
-const PORT = process.env.PORT || 3000
+const PORT = 3000 // || process.env.PORT 
 app.set("port", PORT)
 
 // middleware, transforms http request so that you can use req.body json format 

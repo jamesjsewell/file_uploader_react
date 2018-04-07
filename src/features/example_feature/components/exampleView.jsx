@@ -21,10 +21,6 @@ class TestView extends Component {
     this.props.actions.fetch_items(this.props.itemCollection)
   }
 
-  componentWillReceiveProps(nextProps) {
-
-  }
-
   renderItems() {
     var renderedItems = []
     for (var i = 0; i < this.props.items.length; i++) {
@@ -65,6 +61,8 @@ class TestView extends Component {
             <ItemForm {...formProps} />
           </div>
         }
+
+        {this.props.message? <div> {this.props.message} </div> : null}
 
         <br />
         <div>{this.props.items ? this.renderItems() : null}</div>
