@@ -40,6 +40,10 @@ class ItemForm extends Component {
             fieldValues.name = ""
             fieldValues.description = ""
         }
+
+        if(this.props.formType === "create" && nextProps.formType === "edit"){
+            this.props.reset()
+        }
     }
 
     handleFormSubmit(formProps) {

@@ -60,6 +60,10 @@ export function CRUD(operation, operationData){
 
         }
 
+        function onError(message){
+            handleNotification(message)
+        }
+
         function handleNotification(message, time) {
     
             dispatch({
@@ -67,25 +71,19 @@ export function CRUD(operation, operationData){
                 payload: message
             })
         
-            var reset = function(){
-                dispatch({
-                    type: MESSAGE,
-                    payload: null
-                })
-            }
+            // var reset = function(){
+            //     dispatch({
+            //         type: MESSAGE,
+            //         payload: null
+            //     })
+            // }
         
-            setTimeout(reset, 8000)
+            // setTimeout(reset, 8000)
             
         }
 
     }
 
-}
-
-
-function onError(error, dispatch) {
-   
-    handleMessage(error, dispatch)
 }
 
 

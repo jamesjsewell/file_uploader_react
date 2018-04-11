@@ -21,6 +21,10 @@ class TestView extends Component {
     this.CRUD = this.props.actions.CRUD
     this.CRUD('read', {collection: this.props.itemCollection})
   }
+  
+  componentWillReceiveProps(nextProps){
+
+  }
 
   renderItems() {
     var renderedItems = []
