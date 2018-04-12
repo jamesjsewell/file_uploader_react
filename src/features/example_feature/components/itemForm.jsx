@@ -25,9 +25,11 @@ class ItemForm extends Component {
             { type: 'textarea', name: 'description', label: 'item description', placeholder: 'enter description', component: TextArea, validate: [required] }
         
         ]
+
     }
 
     componentWillReceiveProps(nextProps){
+        
         if(this.props.item != nextProps.item && nextProps.item){
             
             fieldValues.name = nextProps.item.name
@@ -46,7 +48,8 @@ class ItemForm extends Component {
         }
     }
 
-    handleFormSubmit(formProps) {
+    doThisOnSubmit(formProps) {
+      
         var userInput = formProps;
        
         if (
@@ -70,17 +73,43 @@ class ItemForm extends Component {
         }
     }
 
+    renderFields() {
+       
+        var renderedFields = []
+
+        for (var i = 0; i < this.fields.length; i++) {
+            var field = this.fields[i]
+            var fieldProps = field
+          
+            renderedFields.push(<Field {...fieldProps} key={`field${i}`}/>)
+        }
+
+        return renderedFields
+    }
+
     render() {
-        const { handleSubmit } = this.props;
-    
+
+        const { handleSubmit } = this.props
+
         return (
-            <FormTemplate  doThisOnSubmit={this.handleFormSubmit.bind(this)} fieldsArray={this.fields} {...this.props} />
+            <form
+                onSubmit={handleSubmit(this.doThisOnSubmit.bind(this))}
+            >
+
+                {this.renderFields()}
+
+
+                <button type="submit">
+                    submit
+                </button>
+
+            </form >
         );
     }
 }
 
 export default reduxForm({
-    form: "itemForm",
+    form: 'itemForm',
     fields: ["name"],
     asyncValidate: (values, dispatch, validationType)=>{ return asyncValidate(values, dispatch, validationType, 'itemForm') },
     asyncBlurFields: ["name"],

@@ -41,8 +41,9 @@ class TestView extends Component {
 
   render() {
 
-    var formProps = {
+    var itemFormProps = {
 
+      formName: 'itemForm',
       formType: this.props.items.editing ? "edit" : "create",
       CRUD: this.CRUD.bind(this),
       model: this.props.items.model,
@@ -57,12 +58,12 @@ class TestView extends Component {
         {this.props.items.editing?
           <div>
             <strong>edit</strong>
-            <ItemForm {...formProps} />
+            <ItemForm {...itemFormProps} />
           </div>
           :
           <div>
             <strong>create item</strong>
-            <ItemForm {...formProps} />
+            <ItemForm {...itemFormProps} />
           </div>
         }
 
