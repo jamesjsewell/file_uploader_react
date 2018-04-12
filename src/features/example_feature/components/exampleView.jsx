@@ -19,7 +19,7 @@ class TestView extends Component {
   constructor(props) {
     super(props)
     this.CRUD = this.props.actions.CRUD
-    this.CRUD('read', {collection: this.props.itemCollection})
+    this.CRUD('read', {collection: this.props.items.collection})
   }
   
   componentWillReceiveProps(nextProps){
@@ -28,11 +28,11 @@ class TestView extends Component {
 
   renderItems() {
     var renderedItems = []
-    for (var i = 0; i < this.props.items.length; i++) {
-      var theItem = this.props.items[i].attributes
+    for (var i = 0; i < this.props.items.array.length; i++) {
+      var theItem = this.props.items.array[i].attributes
 
       renderedItems.push(
-        <ItemLayout key={`item${i}`} theItem={theItem} collection={this.props.itemCollection} CRUD={this.CRUD.bind(this)} editing={this.props.editingItem} selected={this.props.selectedItem} />
+        <ItemLayout key={`item${i}`} theItem={theItem} collection={this.props.items.collection} CRUD={this.CRUD.bind(this)} editing={this.props.items.editing} selected={this.props.items.selected} />
       )
     }
 
@@ -43,18 +43,18 @@ class TestView extends Component {
 
     var formProps = {
 
-      formType: this.props.editingItem ? "edit" : "create",
+      formType: this.props.items.editing ? "edit" : "create",
       CRUD: this.CRUD.bind(this),
-      model: this.props.item,
-      item: this.props.editingItem ? this.props.selectedItem : null,
-      itemCollection: this.props.itemCollection
+      model: this.props.items.model,
+      item: this.props.items.editing ? this.props.items.selected : null,
+      itemCollection: this.props.items.collection
 
     }
 
     return (
       <div>
 
-        {this.props.editingItem ?
+        {this.props.items.editing?
           <div>
             <strong>edit</strong>
             <ItemForm {...formProps} />
@@ -66,10 +66,10 @@ class TestView extends Component {
           </div>
         }
 
-        {this.props.message? <div> {this.props.message} </div> : null}
+        {this.props.items.message? <div> {this.props.items.message} </div> : null}
 
         <br />
-        <div>{this.props.items ? this.renderItems() : null}</div>
+        <div>{this.props.items.array ? this.renderItems() : null}</div>
 
       </div>)
   }

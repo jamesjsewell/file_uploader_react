@@ -6,18 +6,18 @@ import { Item, ItemCollection } from "./backbone_models/item.js"
 // actions
 import { backbone_create, backbone_read, backbone_update, backbone_delete } from "../util/backboneAJAX.js"
 
-export function CRUD(operation, operationData){
+export function CRUD(operation, operationData) {
 
-    return function(dispatch){
+    return function (dispatch) {
 
-        var {collection, item, id, info} = operationData
+        var { collection, item, id, info } = operationData
 
-        switch(operation){
+        switch (operation) {
 
             case 'create': {
-                backbone_create(collection, item, (error) => { onError(error, dispatch) }, onSuccess )
+                backbone_create(collection, item, onError, onSuccess)
                 break
-            }   
+            }
 
             case 'read': {
                 backbone_read(collection, null, onError, onSuccess)
@@ -41,7 +41,7 @@ export function CRUD(operation, operationData){
 
         }
 
-        function editItem(collection, id)  {
+        function editItem(collection, id) {
             var model = collection.get(id)
             dispatch({
                 type: EDIT_ITEM,
@@ -49,104 +49,87 @@ export function CRUD(operation, operationData){
             })
         }
 
-        function onSuccess(collection, message){
+        function onSuccess(collection, message) {
 
             dispatch({
-                type: ITEM_COLLECTION,
-                payload: { itemCollection: collection, items: collection.models }
+                type: UPDATE_ITEM_COLLECTION,
+                payload: { collection: collection, array: collection.models }
             })
 
             handleNotification(message)
 
         }
 
-        function onError(message){
+        function onError(message) {
             handleNotification(message)
         }
 
         function handleNotification(message, time) {
-    
+
             dispatch({
                 type: MESSAGE,
                 payload: message
             })
-        
-            // var reset = function(){
-            //     dispatch({
-            //         type: MESSAGE,
-            //         payload: null
-            //     })
-            // }
-        
-            // setTimeout(reset, 8000)
-            
+
         }
 
     }
 
 }
 
-
-
 // reducers
-const ITEM_COLLECTION = "item_collection",
+const UPDATE_ITEM_COLLECTION = "update_item_collection",
     EDIT_ITEM = "edit_item",
     MESSAGE = "message"
 
-const init_state = {
-    selectedItem: null,
-    editingItem: null,
-    item: Item,
-    items: null,
-    itemCollection: new ItemCollection(),
-    itemCollectionChanged: false,
-    errorMessage: ''
+const initial_state = {
+
+    selected: null,
+    editing: null,
+    message: null,
+    collection: new ItemCollection(),
+    model: Item,
+    array: null
+
 }
 
-function testReducer(state = init_state, action) {
+export const itemsReducer = function(state = initial_state, action) {
+
+    var payload = action.payload
+
     switch (action.type) {
 
-        case ITEM_COLLECTION: {
+        case UPDATE_ITEM_COLLECTION: {
 
-            var updated = state.itemCollectionChanged
+            return _.extend({}, state, {collection: payload.collection, array: payload.array, editing: false })
+            break
 
-            if (updated) {
-                updated = false
-            }
-            else {
-                updated = true
-            }
-
-            return _.extend({}, state, { items: action.payload.items, itemCollection: action.payload.itemCollection, itemCollectionChanged: updated, editingItem: false })
         }
+
         case EDIT_ITEM: {
-            return _.extend({}, state, { selectedItem: action.payload.selected, editingItem: action.payload.editing })
+
+            return _.extend({}, state, {selected: payload.selected, editing: payload.editing })
+            break
+
         }
+
         case MESSAGE: {
-            return _.extend({}, state, {message: action.payload})
+
+            return _.extend({}, state, {message: payload})
+            break
+
         }
+
     }
 
     return state
 }
 
-export default testReducer
-
-// selectors
-const selectedItem = state => state.test.selectedItem
-const editingItem = state => state.test.editingItem
-const itemCollectionChanged = state => state.test.itemCollectionChanged
-const itemCollection = state => state.test.itemCollection
-const items = state => state.test.items
-const item = state => state.test.item
-const message = state => state.test.message
+const items = state => state.items
 
 export const selector = createStructuredSelector({
-    selectedItem,
-    editingItem,
-    itemCollectionChanged,
-    itemCollection,
-    items,
-    item,
-    message
+    items
 })
+
+
+

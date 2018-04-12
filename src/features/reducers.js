@@ -1,7 +1,7 @@
 import { combineReducers } from "redux"
 import { reducer as formReducer } from "redux-form"
-import testReducer from "./example_feature/controller.js"
+import { itemsReducer } from "./example_feature/controller.js"
 
-const rootReducer = combineReducers({test: testReducer, form: formReducer})
+const rootReducer = combineReducers({items: itemsReducer, form: formReducer})
 
 export default rootReducer
