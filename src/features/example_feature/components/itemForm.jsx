@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Form, Field, reduxForm, change, reset } from "redux-form";
 import { alphaNumeric, required, shouldAsyncValidate, asyncValidate } from "../../util/forms/formValidation.js"
 import { TextField, TextArea } from "../../util/forms/formFields.js"
-import FormTemplate from "../../util/forms/formTemplate.jsx";
 
 const afterSubmit = (result, dispatch, props) => {
     props.reset();
