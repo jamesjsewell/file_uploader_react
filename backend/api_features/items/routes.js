@@ -12,12 +12,12 @@ const express = require("express"),
 // this method is what receives the data from the request
 // and performs logic on it, then returns the result as json 
 // or an error to where you made the http request from
-itemRoutes.post("/create_finding", createItemCont.post)
-itemRoutes.post("/filter_findings", createItemCont.get)
-itemRoutes.get("/get_finding/:id", createItemCont.get)
-itemRoutes.get("/get_findings", createItemCont.get)
-itemRoutes.put("/update_finding/:id", createItemCont.update)
-itemRoutes.delete("/delete_finding/:id", createItemCont.delete)
+itemRoutes.post("/findings", createItemCont.post)
+itemRoutes.post("/findings/filter", createItemCont.get)
+itemRoutes.get("/findings/:id", createItemCont.get)
+itemRoutes.get("/findings", createItemCont.get)
+itemRoutes.put("/findings/:id", createItemCont.update)
+itemRoutes.delete("/findings/:id", createItemCont.delete)
 
 // exports the express routes back to the router.js file, to be hooked up
 // to the main server file

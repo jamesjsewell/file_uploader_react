@@ -20,8 +20,10 @@ class ItemForm extends Component {
 
         this.fields = [
 
-            { type: 'text', name: 'name', label: 'item name', placeholder: 'enter item name', component: TextField, validate: [required, alphaNumeric] },
-            { type: 'textarea', name: 'description', label: 'item description', placeholder: 'enter description', component: TextArea, validate: [required] }
+            { type: 'text', name: 'title', label: 'title', placeholder: 'enter title', component: TextField, validate: [required, alphaNumeric] },
+            { type: 'text', name: 'subtitle', label: 'subtitle', placeholder: 'enter subtitle', component: TextField, validate: [required, alphaNumeric] },
+            { type: 'textarea', name: 'description', label: 'description', placeholder: 'enter description', component: TextArea, validate: [required] },
+            { type: 'text', name: 'chart_url', label: 'chart url', placeholder: 'paste url here', component: TextField, validate: [required, alphaNumeric] }
         
         ]
 
@@ -31,15 +33,19 @@ class ItemForm extends Component {
         
         if(this.props.item != nextProps.item && nextProps.item){
             
-            fieldValues.name = nextProps.item.name
+            fieldValues.title = nextProps.item.title
+            fieldValues.subtitle = nextProps.item.subtitle
             fieldValues.description = nextProps.item.description
+            fieldValues.chart_url = nextProps.item.chart_url
             
         }
 
         if(this.props.formType === "edit" && nextProps.formType === "create" ){
 
-            fieldValues.name = ""
+            fieldValues.title = ""
+            fieldValues.subtitle = ""
             fieldValues.description = ""
+            fieldValues.chart_url = ""
         }
 
         if(this.props.formType === "create" && nextProps.formType === "edit"){

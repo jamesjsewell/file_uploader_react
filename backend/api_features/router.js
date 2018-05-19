@@ -7,7 +7,7 @@ const apiRoutes = express.Router()
 const itemRoutes = require("./items/routes.js")
 
 // tells main express router to use subroutes
-apiRoutes.use("/data_findings", itemRoutes)
+apiRoutes.use("/data_conclusions", itemRoutes)
 
 // exports api routes to the main server file
 module.exports = apiRoutes

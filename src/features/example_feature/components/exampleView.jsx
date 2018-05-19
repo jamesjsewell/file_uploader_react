@@ -62,7 +62,7 @@ class TestView extends Component {
           </div>
           :
           <div>
-            <strong>create item</strong>
+            <strong>create a key finding</strong>
             <ItemForm {...itemFormProps} />
           </div>
         }

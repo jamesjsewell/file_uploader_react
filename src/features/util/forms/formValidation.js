@@ -51,7 +51,7 @@ export const asyncValidate = (values, dispatch, validationType, form) => {
     switch (form) {
         case 'itemForm': {
 
-            var request = axios.post(`${API_URL}/example_route/items/filter`, values);
+            var request = axios.post(`${API_URL}/data_conclusions/findings/filter`, values);
 
             break
         }

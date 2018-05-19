@@ -23,8 +23,11 @@ class ItemLayout extends Component {
                                 <button style={{ float: 'right' }} onClick={() => this.props.CRUD('edit', {collection: collection, id: theItem._id})}>edit</button>
                             </div>}
 
-                        <strong>{theItem.name}</strong>
-                        <p>{theItem.description}</p> <br />
+                        <strong>{theItem.title}</strong>
+                        <p>{theItem.subtitle}</p> 
+                        <p>{theItem.description}</p> 
+                        <p>{theItem.chart_url}</p> 
+                        <br/>
                     </div>
 
                 }
