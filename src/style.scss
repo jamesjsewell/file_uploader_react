@@ -16,3 +16,30 @@
         
     }
 }
+
+.success_message{
+    background: rgba($color: limegreen, $alpha: 0.1);
+    border: .2rem solid limegreen;
+    width: 10rem;
+    padding: 1rem;
+    border-radius: .5rem;
+}
+
+.item{
+    background: rgba($color: black, $alpha: 0.1);
+    padding: 2rem;
+    margin: 1rem;
+    border-radius: .5rem;
+    width: 50%;
+
+    .buttons_wrapper{
+        text-align: right;
+    }
+
+    .attribute_wrapper{
+        border: .1rem solid white;
+        padding: 1rem;
+        width: auto;
+    }
+}
+

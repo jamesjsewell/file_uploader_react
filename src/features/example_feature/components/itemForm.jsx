@@ -20,10 +20,10 @@ class ItemForm extends Component {
 
         this.fields = [
 
-            { type: 'text', name: 'title', label: 'title', placeholder: 'enter title', component: TextField, validate: [required, alphaNumeric] },
-            { type: 'text', name: 'subtitle', label: 'subtitle', placeholder: 'enter subtitle', component: TextField, validate: [required, alphaNumeric] },
-            { type: 'textarea', name: 'description', label: 'description', placeholder: 'enter description', component: TextArea, validate: [required] },
-            { type: 'text', name: 'chart_url', label: 'chart url', placeholder: 'paste url here', component: TextField, validate: [required, alphaNumeric] }
+            { type: 'text', name: 'title', label: 'title', placeholder: 'enter title', component: TextField, validate: [alphaNumeric] },
+            { type: 'text', name: 'subtitle', label: 'subtitle', placeholder: 'enter subtitle', component: TextField, validate: [alphaNumeric] },
+            { type: 'textarea', name: 'description', label: 'description', placeholder: 'enter description', component: TextArea, validate: [] },
+            { type: 'text', name: 'chart_url', label: 'chart url', placeholder: 'paste url here', component: TextField, validate: [alphaNumeric] }
         
         ]
 

@@ -1,5 +1,8 @@
 
 import React, { Component } from "react";
+import {
+	Segment
+} from "semantic-ui-react";
 
 class ItemLayout extends Component {
     constructor(props) {
@@ -15,19 +18,34 @@ class ItemLayout extends Component {
                 {editing && theItem._id === selected._id ? <div><p>see form above</p><br /></div> :
 
 
-                    <div style={{ width: `20%` }} >
+                    <div class="item">
 
                         {editing ? null :
-                            <div>
-                                <button style={{ float: 'right' }} onClick={() => this.props.CRUD('delete', {collection: collection, id: theItem._id})}>x</button>
-                                <button style={{ float: 'right' }} onClick={() => this.props.CRUD('edit', {collection: collection, id: theItem._id})}>edit</button>
+                            <div className="buttons_wrapper">
+                                <button onClick={() => this.props.CRUD('delete', {collection: collection, id: theItem._id})}>x</button>
+                                <button onClick={() => this.props.CRUD('edit', {collection: collection, id: theItem._id})}>edit</button>
                             </div>}
+    
+                            <div className="attribute_wrapper">
+                                <strong>title</strong>
+                                <h4>{theItem.title}</h4>
+                            </div>
+                            
+                            <div className="attribute_wrapper">
+                                <strong>subtitle</strong>
+                                <h5>{theItem.subtitle}</h5>
+                            </div>
 
-                        <strong>{theItem.title}</strong>
-                        <p>{theItem.subtitle}</p> 
-                        <p>{theItem.description}</p> 
-                        <p>{theItem.chart_url}</p> 
-                        <br/>
+                            <div className="attribute_wrapper">
+                                <strong>description</strong>
+                                <p>{theItem.description}</p>
+                            </div>
+
+                            <div className="attribute_wrapper">
+                                <strong>chart url</strong>
+                                <p>{theItem.chart_url}</p>
+                            </div>
+                      
                     </div>
 
                 }
