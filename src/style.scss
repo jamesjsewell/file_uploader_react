@@ -25,21 +25,35 @@
     border-radius: .5rem;
 }
 
-.item{
-    background: rgba($color: black, $alpha: 0.1);
-    padding: 2rem;
-    margin: 1rem;
-    border-radius: .5rem;
-    width: 50%;
+.items{
 
-    .buttons_wrapper{
-        text-align: right;
-    }
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    width: 100%;
 
-    .attribute_wrapper{
-        border: .1rem solid white;
-        padding: 1rem;
+    .item_wrapper{
+
         width: auto;
+        margin: 1rem;
+        padding: 2rem;
+
+
+        .item{
+        
+            .buttons_wrapper{
+                text-align: right;
+            }
+        
+            .attribute_wrapper{
+                border: .1rem solid lightgray;
+                padding: 1rem;
+                width: 90%;
+                height: auto;
+            }
+        }
+
     }
+
 }
 

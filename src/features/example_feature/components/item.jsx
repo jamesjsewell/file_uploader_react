@@ -13,7 +13,7 @@ class ItemLayout extends Component {
         const { handleSubmit, theItem, collection, deleteItem, editing, selected } = this.props;
 
         return (
-            <div>
+            <div class="item_wrapper">
 
                 {editing && theItem._id === selected._id ? <div><p>see form above</p><br /></div> :
 

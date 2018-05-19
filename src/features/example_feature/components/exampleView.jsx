@@ -76,7 +76,7 @@ class TestView extends Component {
               
               : null}
 
-            <div class="">
+            <div class="items">
                   {this.props.items.array ? this.renderItems() : null}
             </div>
 

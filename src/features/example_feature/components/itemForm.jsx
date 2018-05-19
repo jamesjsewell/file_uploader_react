@@ -5,7 +5,7 @@ import { TextField, TextArea } from "../../util/forms/formFields.js"
 
 const afterSubmit = (result, dispatch, props) => {
     props.reset();
-    props.untouch(["name", "description"]);
+    props.untouch(["title", "description"]);
 
 }
 
@@ -116,9 +116,9 @@ class ItemForm extends Component {
 export default reduxForm({
     form: 'itemForm',
     fields: ["name"],
-    asyncValidate: (values, dispatch, validationType)=>{ return asyncValidate(values, dispatch, validationType, 'itemForm') },
-    asyncBlurFields: ["name"],
-    shouldAsyncValidate,
+    // asyncValidate: (values, dispatch, validationType)=>{ return asyncValidate(values, dispatch, validationType, 'itemForm') },
+    // asyncBlurFields: ["name"],
+    // shouldAsyncValidate,
     onSubmitSuccess: afterSubmit,
     initialValues: fieldValues
 })(ItemForm);
