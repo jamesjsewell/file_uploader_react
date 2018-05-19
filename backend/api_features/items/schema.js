@@ -5,8 +5,10 @@ const Schema = mongoose.Schema
 
 // instance of mongoose Schema class 
 var Item = new Schema({
-    name: { type: String, required: true },
-    description: { type: String, required: true },
+    title: { type: String },
+    subtitle: { type: String },
+    description: { type: String },
+    chart_url: { type: String }
    
 }, { collection: 'key_data_findings', timestamps: true })
 

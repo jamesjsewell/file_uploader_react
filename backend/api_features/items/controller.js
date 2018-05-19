@@ -19,12 +19,14 @@ module.exports = {
 
         // parsing the information contained in the body of the request that will be
         // applied ot the new record.
-        const name = req.body.name,
-            description = req.body.description
+        const title = req.body.title,
+            subtitle = req.body.subtitle,
+            description = req.body.description,
+            chart_url = req.body.chart_url
 
         // 'Something' is an instance of the Item mongoose model class. It contains a method called save.
         // the save method will take the mongoose model and save it to the database
-        var Something = new Item({ name: name, description: description })
+        var Something = new Item({ title: title, subtitle: subtitle, description: description, chart_url: chart_url })
         Something.save(function (err, results) {
 
             // if there is an error, it will be sent over as an http response to the place where the request was initialized
