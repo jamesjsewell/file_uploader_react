@@ -4,8 +4,7 @@
   "description": "basic webpack setup",
   "main": "index.js",
   "scripts": {
-    "start": "run-p dev-server client-server",
-    "dev-server": "NODE_ENV=development nodemon --watch ./backend ./backend/server.js",
+    "start": "npm run client-server",
     "client-server": "webpack-dev-server --open --config webpack.dev.js --history-api-fallback -d",
     "build": "webpack --config webpack.prod.js"
   },

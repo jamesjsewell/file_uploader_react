@@ -18,12 +18,21 @@ class TestView extends Component {
 
   constructor(props) {
     super(props)
+    this.state = { showMessage: false }
     this.CRUD = this.props.actions.CRUD
     this.CRUD('read', {collection: this.props.items.collection})
   }
   
   componentWillReceiveProps(nextProps){
+    if(nextProps.items.message != this.props.items.message){
+      this.showHideMessage()
+    }
 
+  }
+
+  showHideMessage(){
+    this.state.showMessage = true
+    setTimeout(()=>{this.setState({showMessage: false})}, 4000)
   }
 
   renderItems() {
@@ -53,33 +62,39 @@ class TestView extends Component {
     }
 
     return (
-      <div className="container">
 
-        <div className="row">
+      <div>
 
-          <div className="twelve columns">
+        {this.props.items.async_in_progress? <div className="loader_wrapper"><div className="loader"><h3>Loading...</h3></div></div> : null}
 
-            {this.props.items.editing?
-              <div>
-                <h4>edit post</h4>
-                <ItemForm {...itemFormProps} />
-              </div>
-              :
-              <div>
-                  <h4>create a post</h4>
+        <div className="container">
+
+          <div className="row">
+
+            <div className="twelve columns">
+
+              {this.props.items.editing?
+                <div>
+                  <h4>edit post</h4>
                   <ItemForm {...itemFormProps} />
-              </div>
-            }
-
-            {this.props.items.message? 
-              <div className="success_message"> {this.props.items.message} </div> 
+                </div>
+                :
+                <div>
+                    <h4>create a post</h4>
+                    <ItemForm {...itemFormProps} />
+                </div>
+              }
               
-              : null}
+              {this.props.items.message && this.state.showMessage && !this.props.items.editing? 
+                <div className="message"> {this.props.items.message} </div> 
+                
+                : null}
 
-            <div className="items">
-                  {this.props.items.array ? this.renderItems() : null}
+              <div className="items">
+                    {this.props.items.array ? this.renderItems() : null}
+              </div>
+
             </div>
-
           </div>
         </div>
       </div>)

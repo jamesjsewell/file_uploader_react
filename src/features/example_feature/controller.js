@@ -10,6 +10,11 @@ export function CRUD(operation, operationData) {
 
     return function (dispatch) {
 
+        dispatch({
+            type: ASYNC,
+            payload: true
+        })
+
         var { collection, item, id, info } = operationData
 
         switch (operation) {
@@ -58,10 +63,21 @@ export function CRUD(operation, operationData) {
 
             handleNotification(message)
 
+            dispatch({
+                type: ASYNC,
+                payload: false
+            })
+
         }
 
         function onError(message) {
+
             handleNotification(message)
+
+            dispatch({
+                type: ASYNC,
+                payload: false
+            })
         }
 
         function handleNotification(message, time) {
@@ -70,6 +86,7 @@ export function CRUD(operation, operationData) {
                 type: MESSAGE,
                 payload: message
             })
+
 
         }
 
@@ -80,7 +97,8 @@ export function CRUD(operation, operationData) {
 // reducers
 const UPDATE_ITEM_COLLECTION = "update_item_collection",
     EDIT_ITEM = "edit_item",
-    MESSAGE = "message"
+    MESSAGE = "message",
+    ASYNC = "aysnc"
 
 const initial_state = {
 
@@ -108,7 +126,7 @@ export const itemsReducer = function(state = initial_state, action) {
 
         case EDIT_ITEM: {
 
-            return _.extend({}, state, {selected: payload.selected, editing: payload.editing })
+            return _.extend({}, state, {selected: payload.selected, editing: payload.editing, message: '...editing', async_in_progress: false })
             break
 
         }
@@ -118,6 +136,11 @@ export const itemsReducer = function(state = initial_state, action) {
             return _.extend({}, state, {message: payload})
             break
 
+        }
+
+        case ASYNC:{
+            
+            return _.extend({}, state, {async_in_progress: payload})
         }
 
     }

@@ -1,27 +1,9 @@
-.hello{
-    color: yellowgreen;
-    .world{
-        color: white;
-        box-shadow: 2rem 2rem;
 
+.message{
 
-        background-color: lightblue;
-        animation-name: example;
-        animation-duration: 10s;
-
-        @keyframes example {
-            from {background-color: lightblue;}
-            to {background-color: lightgreen;}
-        }
-        
-    }
-}
-
-.success_message{
-
-    background: rgba($color: limegreen, $alpha: 0.1);
-    color: limegreen;
-    border: .2rem solid limegreen;
+    background: rgba($color: grey, $alpha: 0.1);
+    color: grey;
+    border: .1rem solid grey;
     width: 10rem;
     padding: 1rem;
     border-radius: .5rem;
@@ -54,9 +36,30 @@
                 height: auto;
                 border-radius: .5rem;
             }
+        
         }
 
     }
 
 }
+
+.loader_wrapper{
+    background: rgba($color: grey, $alpha: 0.8);
+    border-radius: 1rem;
+    padding: 5rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    div{
+
+        color: white;
+        width: 100%;
+        height: 100%;
+        
+    }
+}
+
+
 
