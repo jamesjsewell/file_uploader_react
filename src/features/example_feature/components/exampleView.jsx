@@ -53,30 +53,30 @@ class TestView extends Component {
     }
 
     return (
-      <div class="container">
+      <div className="container">
 
-        <div class="row">
+        <div className="row">
 
-          <div class="twelve columns">
+          <div className="twelve columns">
 
             {this.props.items.editing?
               <div>
-                <h4>edit</h4>
+                <h4>edit post</h4>
                 <ItemForm {...itemFormProps} />
               </div>
               :
               <div>
-                  <h4>create a key finding</h4>
+                  <h4>create a post</h4>
                   <ItemForm {...itemFormProps} />
               </div>
             }
 
             {this.props.items.message? 
-              <div class="success_message"> {this.props.items.message} </div> 
+              <div className="success_message"> {this.props.items.message} </div> 
               
               : null}
 
-            <div class="items">
+            <div className="items">
                   {this.props.items.array ? this.renderItems() : null}
             </div>
 

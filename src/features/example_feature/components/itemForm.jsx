@@ -15,15 +15,12 @@ class ItemForm extends Component {
     constructor(props) {
         super(props);
         this.state = {}
-        this.state.initName = ''
-        this.state.initDescription = ''
 
         this.fields = [
 
             { type: 'text', name: 'title', label: 'title', placeholder: 'enter title', component: TextField, validate: [alphaNumeric] },
             { type: 'text', name: 'subtitle', label: 'subtitle', placeholder: 'enter subtitle', component: TextField, validate: [alphaNumeric] },
-            { type: 'textarea', name: 'description', label: 'description', placeholder: 'enter description', component: TextArea, validate: [] },
-            { type: 'text', name: 'chart_url', label: 'chart url', placeholder: 'paste url here', component: TextField, validate: [alphaNumeric] }
+            { type: 'textarea', name: 'description', label: 'description', placeholder: 'enter description', component: TextArea, validate: [] }
         
         ]
 
@@ -36,7 +33,7 @@ class ItemForm extends Component {
             fieldValues.title = nextProps.item.title
             fieldValues.subtitle = nextProps.item.subtitle
             fieldValues.description = nextProps.item.description
-            fieldValues.chart_url = nextProps.item.chart_url
+            
             
         }
 
@@ -45,7 +42,7 @@ class ItemForm extends Component {
             fieldValues.title = ""
             fieldValues.subtitle = ""
             fieldValues.description = ""
-            fieldValues.chart_url = ""
+          
         }
 
         if(this.props.formType === "create" && nextProps.formType === "edit"){

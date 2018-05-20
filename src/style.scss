@@ -18,11 +18,14 @@
 }
 
 .success_message{
+
     background: rgba($color: limegreen, $alpha: 0.1);
+    color: limegreen;
     border: .2rem solid limegreen;
     width: 10rem;
     padding: 1rem;
     border-radius: .5rem;
+    
 }
 
 .items{
@@ -38,7 +41,6 @@
         margin: 1rem;
         padding: 2rem;
 
-
         .item{
         
             .buttons_wrapper{
@@ -50,6 +52,7 @@
                 padding: 1rem;
                 width: 90%;
                 height: auto;
+                border-radius: .5rem;
             }
         }
 

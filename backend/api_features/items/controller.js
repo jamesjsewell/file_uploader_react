@@ -21,12 +21,11 @@ module.exports = {
         // applied ot the new record.
         const title = req.body.title,
             subtitle = req.body.subtitle,
-            description = req.body.description,
-            chart_url = req.body.chart_url
+            description = req.body.description
 
         // 'Something' is an instance of the Item mongoose model class. It contains a method called save.
         // the save method will take the mongoose model and save it to the database
-        var Something = new Item({ title: title, subtitle: subtitle, description: description, chart_url: chart_url })
+        var Something = new Item({ title: title, subtitle: subtitle, description: description })
         Something.save(function (err, results) {
 
             // if there is an error, it will be sent over as an http response to the place where the request was initialized
