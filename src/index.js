@@ -1,25 +1,14 @@
-import './normalize.css'
+
 import './style.scss'
-import './skeleton.css'
+import './uppy.min.css'
 import React from "react"
 import ReactDOM from "react-dom"
-import { BrowserRouter, Route, Link } from "react-router-dom"
-import { Provider } from "react-redux"
-import { createStore, applyMiddleware } from "redux"
-import thunk from "redux-thunk"
-import RouterConfig from "./router.js"
-import rootReducer from "./features/reducers.js"
-
-
-const middleware = applyMiddleware(thunk)
-const store = createStore(rootReducer, middleware)
+import UppyView from "./features/uppy/components/UppyView.jsx"
 
 ReactDOM.render(
-    <Provider store={store}>
-        <BrowserRouter>
-            <RouterConfig />
-        </BrowserRouter>
-    </Provider>,
+    <div>
+        <UppyView />
+    </div>,
     document.querySelector(".wrapper")
 )
 
