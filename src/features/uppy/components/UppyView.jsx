@@ -7,26 +7,8 @@ class UppyView extends Component {
     super(props)
   }
 
-
   render() {
-
-    return (
-
-      <div>
-
-        <div className="container">
-
-          <div className="row">
-
-            <div className="twelve columns">
-              <UppyDashboardComponent />
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>)
+    return <UppyDashboardComponent />
   }
 }
 
